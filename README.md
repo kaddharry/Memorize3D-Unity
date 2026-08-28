@@ -1,15 +1,14 @@
-````markdown
 # Memorize
 
-A 3D memory card-matching game built with Unity 6. The player flips cards to find matching pairs while tracking time, failed attempts, and personal best performance.
+A 3D memory card-matching game built with Unity 6. Flip cards, find matching pairs, and complete the board with the best possible time and number of attempts.
 
 ## Gameplay
 
 - Flip cards to reveal their faces.
-- Find all matching pairs.
+- Find and match all pairs.
 - Unmatched cards shake and flip back face-down.
 - Track remaining pairs, elapsed time, and failed attempts.
-- Personal best performance is saved between sessions.
+- Personal best time and attempts are saved between sessions.
 - Complete all pairs to trigger the win screen.
 - Restart the game directly from the win screen.
 - Return to the main menu using the Home button.
@@ -19,8 +18,8 @@ A 3D memory card-matching game built with Unity 6. The player flips cards to fin
 - **Engine:** Unity 6 (6000.3.13f1)
 - **Language:** C#
 - **UI:** Unity UI + TextMeshPro
-- **Target Platforms:** Android (portrait), Windows/macOS
-- **Persistence:** Unity `PlayerPrefs`
+- **Target Platforms:** Android (portrait), Windows, macOS
+- **Persistence:** Unity PlayerPrefs
 
 ## Project Structure
 
@@ -50,8 +49,8 @@ Assets/
     ├── CameraController.cs
     ├── CardController.cs
     ├── ColorMaterial.cs
-    ├── DisparadorController.cs
-    ├── FrameRaterLimiter.cs
+    ├── DisparCardController.cs
+    ├── FrameRateLimiter.cs
     ├── GameManager.cs
     ├── LanguageSelector.cs
     ├── LocalizationManager.cs
@@ -61,14 +60,14 @@ Assets/
     ├── ObjectNameTuple.cs
     ├── PlayerController.cs
     └── Transitions.cs
-````
+```
 
 ## Scene Flow
 
 ```text
 Preload → Start (Main Menu) → Game
-                         ↘ Options
-                         ↘ Credits
+                          ↘ Options
+                          ↘ Credits
 
 Game → Home → Start
 Game → Restart → Game
@@ -76,11 +75,42 @@ Game → Restart → Game
 
 ## Scenes
 
-* **Preload** — Initializes the required managers and persistent systems.
-* **Start** — Main menu and entry point to the game.
-* **Game** — Main memory card gameplay.
-* **Options** — Language selector and settings interface.
-* **Credits** — Credits screen.
+### Preload
+
+Initializes the required managers and persistent systems before entering the main menu.
+
+### Start
+
+The main menu and entry point to the game.
+
+Provides access to:
+
+- Start / Play
+- Options
+- Credits
+
+### Game
+
+The main card-matching gameplay scene.
+
+Includes:
+
+- Card board
+- Remaining pairs counter
+- Timer
+- Failed attempts counter
+- Best score information
+- Win screen
+- Home button
+- Restart button
+
+### Options
+
+Provides the game's options interface, including language selection and other available settings.
+
+### Credits
+
+Displays the game's credits.
 
 ## How to Run
 
@@ -88,149 +118,95 @@ Game → Restart → Game
 2. Allow Unity to import and process the project assets.
 3. Open the `Start` scene from `Assets/Scenes`.
 4. Click the **Play** button in the Unity Editor.
-5. Select **Play** from the main menu to enter the game.
-6. Use the **Home** button during gameplay to return to the main menu.
-7. After winning, use **Restart** to start another round.
+5. Select **Play / Start** from the main menu to enter the game.
 
 ## How It Works
 
-1. The `Preload` scene initializes the required managers.
-2. The `Start` scene provides the main menu and navigation.
-3. The `Game` scene handles the card-matching gameplay.
-4. Cards are revealed when the player selects them.
-5. A second card is selected and compared with the first.
-6. Matching cards are removed from play.
-7. Non-matching cards shake and flip back face-down.
-8. The HUD tracks remaining pairs, failed attempts, and elapsed time.
-9. The player's best performance is stored using `PlayerPrefs`.
-10. When all pairs are matched, the win screen displays the final result.
-11. The player can restart the game or return to the home screen.
+1. The `Preload` scene initializes the required managers and persistent systems.
+2. The `Start` scene loads as the main menu.
+3. Starting the game loads the `Game` scene.
+4. Cards are placed on the game board and can be selected by the player.
+5. Selecting a card reveals its face.
+6. The player selects a second card to attempt a match.
+7. Matching cards are removed from the active game.
+8. If the cards do not match, they shake and flip back face-down.
+9. The HUD tracks remaining pairs, elapsed time, and failed attempts.
+10. Completing all pairs triggers the win screen.
+11. The win screen displays the final game result and allows the player to restart or return home.
+12. Best performance information is persisted using `PlayerPrefs`.
 
-## Main Scripts
-
-### `GameManager.cs`
-
-Handles the main game-management functionality and persistent game systems.
-
-### `PlayerController.cs`
-
-Handles core gameplay state, card matching, remaining cards, win conditions, timer and attempt tracking, and best-score logic.
-
-### `CardController.cs`
-
-Controls individual cards, including selection, flip animation, matching behavior, and mismatch feedback.
-
-### `ButtonsManager.cs`
-
-Handles UI button navigation between scenes and menu states, including Start, Game, Options, Credits, Exit, Home, and Restart flows.
-
-### `LocalizationManager.cs`
-
-Provides the custom localization system and persists the selected language using `PlayerPrefs`.
-
-### `LocalizedText.cs`
-
-Updates UI text when the selected language changes.
-
-### `LanguageSelector.cs`
-
-Provides the runtime language-selection interface in the Options scene.
-
-### `Music.cs`
-
-Manages background music and persistent audio behavior.
-
-### `Transitions.cs`
-
-Controls animator-driven scene and UI fade transitions.
-
-## Implemented Improvements
+## Implemented Features
 
 ### Gameplay
 
-* Visible timer while the game is active.
-* Timer stops when the player wins.
-* Failed attempts counter displayed in the HUD.
-* Personal best time and attempts saved using `PlayerPrefs`.
-* Best score displayed during gameplay and on the win screen.
-* Cards drop onto the board with an ease-out animation at the beginning of the game.
-* Cards shake when the selected pair does not match.
-* Restart functionality available from the win screen.
+- Card matching gameplay with 10 pairs.
+- Card flip animations.
+- Randomized card arrangement.
+- Shake animation for incorrect matches.
+- Remaining pairs counter.
+- Elapsed game timer.
+- Failed attempts counter.
+- Win screen after completing all pairs.
+- Restart functionality from the win screen.
+- Home button to return to the main menu.
+
+### Scoring and Persistence
+
+- Personal best time tracking.
+- Personal best attempts tracking.
+- Best results saved between sessions using `PlayerPrefs`.
+- Best score displayed in the game HUD and win screen.
 
 ### User Experience
 
-* Added a **Home** button to return from the Game scene to the main menu.
-* Added a **Restart** button to start another round after winning.
-* Added English/Spanish localization support.
-* Added an Options screen with language and settings interface.
-* Added Credits screen.
-* Added navigation between the main menu, game, options, and credits.
+- Main menu with navigation to gameplay, options, and credits.
+- Home and restart navigation from gameplay.
+- Options screen with language selection.
+- English and Spanish localization.
+- Persistent language selection using `PlayerPrefs`.
+- Fade transitions between scenes.
 
-### Bug Fixes
+### Technical
 
-* Fixed card matching so that matching is based on card/material identity instead of relying on array index order.
-* Added working Home navigation from the Game scene back to the Start scene.
+- Persistent managers initialized through the `Preload` scene.
+- Scene-based game flow.
+- Modular C# scripts for gameplay, UI, localization, audio, and transitions.
+- Randomized card setup.
+- Persistent player preferences for saved settings and scores.
+
+## Controls
+
+### Desktop
+
+- Use the mouse to interact with cards and UI buttons.
+
+### Mobile
+
+- Tap cards and UI buttons using the touchscreen.
 
 ## Localization
 
-The project includes a custom localization system supporting:
+The game includes support for:
 
-* English
-* Spanish
+- English
+- Spanish
 
-Localized content is stored under:
+The selected language is stored using `PlayerPrefs` and applied through the custom localization system.
 
-```text
-Assets/Resources/Localization/
-├── en.txt
-└── es.txt
-```
+## Project Notes
 
-The selected language is persisted using `PlayerPrefs` and restored between sessions.
+This project was originally developed as a Unity-based memory card game and was further adapted and improved with additional gameplay, navigation, UI, localization, and persistence features.
 
-## Current Game UI
+## Future Improvements
 
-The gameplay HUD includes:
+- Additional difficulty levels.
+- Countdown mode.
+- Match visual effects.
+- Separate audio cues for matches and mismatches.
+- More language support.
+- Improved mobile input handling.
+- Additional gameplay and accessibility settings.
 
-* **Remaining** — Number of cards/pairs remaining.
-* **Attempts** — Number of failed matching attempts.
-* **Timer** — Current elapsed game time.
-* **Best** — Personal best performance.
-* **Home** — Returns to the main menu.
-* **Restart** — Restarts the game after winning.
+## License
 
-## Architecture Notes
-
-The project uses Unity scenes and MonoBehaviour-based managers and controllers.
-
-Persistent systems use Unity's `DontDestroyOnLoad` pattern where appropriate. UI buttons are connected through Unity Button `OnClick` events, with `ButtonsManager` handling navigation between the relevant scenes.
-
-The project also contains legacy Unity UI and animation components inherited from the original project.
-
-## Planned Improvements
-
-### Gameplay
-
-* Difficulty levels with different card counts and animation timings.
-* Countdown mode with a limited time to complete the board.
-* Penalties for incorrect matches.
-* Additional card sets and textures.
-
-### User Experience
-
-* Visual effects when a matching pair is found.
-* Highlight the first selected card while waiting for the second card.
-* Animated win-screen entrance using fade and scale effects.
-* More complete settings controls for SFX volume, BGM volume, and difficulty.
-
-### Technical / Quality
-
-* Separate audio cues for match and mismatch events.
-* Continue migrating legacy `UnityEngine.UI.Text` components to TextMeshPro.
-* Replace `OnMouseDown()`-based card interaction with `IPointerClickHandler` and appropriate raycasting for more reliable mobile touch input.
-* Further cleanup and modernization of legacy Unity components.
-
-## Credits
-
-This project was originally developed as a Unity memory-card game and subsequently extended with additional gameplay, UI, navigation, localization, and usability improvements.
-
+This project is available under the MIT License.
