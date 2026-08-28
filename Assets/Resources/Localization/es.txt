@@ -1,0 +1,16 @@
+# Español
+ui.play=Jugar
+ui.settings=Ajustes
+ui.credits=Créditos
+ui.exit=Salir
+ui.back=Volver
+ui.options_title=Opciones
+ui.language_label=Idioma
+ui.sfx_volume=Volumen SFX
+ui.bgm_volume=Volumen BGM
+ui.difficulty=Dificultad
+ui.remaining=Restantes: {0}
+ui.attempts=Intentos: {0}
+ui.you_win=¡GANASTE!
+ui.best=Mejor
+ui.new_record=★ ¡NUEVO RECORD!

@@ -1,0 +1,16 @@
+# English
+ui.play=Play
+ui.settings=Settings
+ui.credits=Credits
+ui.exit=Exit
+ui.back=Back
+ui.options_title=Options
+ui.language_label=Language
+ui.sfx_volume=SFX Volume
+ui.bgm_volume=BGM Volume
+ui.difficulty=Difficulty
+ui.remaining=Remaining: {0}
+ui.attempts=Attempts: {0}
+ui.you_win=YOU WIN!
+ui.best=Best
+ui.new_record=★ NEW RECORD!
